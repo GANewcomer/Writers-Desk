@@ -2,4 +2,6 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs/WritersDesk/v17
+/.vs
+/WritersDesk/bin/
+/WritersDesk/obj/
