@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="WritersDesk.Views.WritingTasksView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:WritersDesk.Views.Controls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:WritersDesk.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:taskItems="clr-namespace:WritersDesk.Models.TaskItems"
+             d:DesignHeight="450"
+             d:DesignWidth="500"
+             mc:Ignorable="d">
+    <GroupBox>
+        <GroupBox.Header>
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Width="20"
+                                         Height="20"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center"
+                                         Kind="CheckboxMarkedCirclePlusOutline" />
+                <TextBlock Margin="10,0,0,0"
+                           VerticalAlignment="Center"
+                           FontSize="14"
+                           Text="Tasks" />
+            </StackPanel>
+        </GroupBox.Header>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <TreeView HorizontalContentAlignment="Stretch"
+                      Foreground="White"
+                      ItemsSource="{Binding Tasks}"
+                      Style="{StaticResource MaterialDesignTreeView}">
+                <TreeView.ItemContainerStyle>
+                    <Style BasedOn="{StaticResource {x:Type TreeViewItem}}" TargetType="TreeViewItem">
+                        <Setter Property="Background" Value="Red" />
+                        <Setter Property="Padding" Value="0" />
+                        <Setter Property="HorizontalAlignment" Value="Stretch" />
+                    </Style>
+                </TreeView.ItemContainerStyle>
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate DataType="{x:Type taskItems:TaskItem}" ItemsSource="{Binding SubTasks}">
+                        <controls:TaskItemControl DataContext="{Binding}" />
+
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+
+            <GroupBox Grid.Row="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button BorderThickness="0"
+                            Command="{Binding AddTaskCommand}"
+                            Content="{materialDesign:PackIcon Kind=Add}" />
+                    <controls:TaskItemControl Grid.Column="1" DataContext="{Binding NewTask}" />
+                </Grid>
+            </GroupBox>
+
+        </Grid>
+
+    </GroupBox>
+</UserControl>
