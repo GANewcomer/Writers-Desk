@@ -24,5 +24,16 @@ namespace WritersDesk.Views.Controls
         {
             InitializeComponent();
         }
+
+
+        public bool IsSelected
+        {
+            get => (bool)GetValue(IsSelectedProperty);
+            set => SetValue(IsSelectedProperty, value);
+        }
+
+        public static readonly DependencyProperty IsSelectedProperty = 
+            DependencyProperty.Register("IsSelected", typeof(bool), typeof(MainWindow));
+
     }
 }
